@@ -11,7 +11,7 @@ class Save {
         return readFileAsync('db/db.json', 'utf8'); 
     }
 
-    write (note) {
+    write(note) {
         return writeFileAsync('db/db.json', JSON.stringify(note));
     }
 
@@ -45,6 +45,7 @@ class Save {
     }
 
     
+
 }
 
 module.exports = new Save();

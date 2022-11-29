@@ -3,7 +3,6 @@ const save = require('../db/save');
 const fs = require('fs');
 
 
-const uniqid = require('uniqid');
 
 
 
@@ -26,16 +25,25 @@ const uniqid = require('uniqid');
         // let db = fs.readFileSync('db/db.json');
         // db = JSON.parse(db);
         // res.json(db);
-``
 
-    let userNote = {
-        title: req.body.title,
-        text: req.body.text,
-        id: uniqid(),
-    };
+        // code i tryed using from a guid that didnt end up working 
+    // let userNote = {
+    //     title: req.body.title,
+    //     text: req.body.text,
+    //     id: uniqid(),
+    // };
 
-    db.push(userNote);
-    fs.writeFileSync('db/db.json', JSON.stringify(db));
+    // db.push(userNote);
+    // fs.writeFileSync('db/db.json', JSON.stringify(db));
     })
+
+    router.delete('/notes/:id', (req, res) => {
+        let db = JSON.parse(fs.readFileSync('db/db.json'))
+
+        let deleteNotes = db.filter(item => item.id !== req.params.id);
+
+        fs.writeFileSync('db/db.json', JSON.stringify(deleteNotes));
+        res.json(deleteNotes);
+    });
 
     module.exports = router;
